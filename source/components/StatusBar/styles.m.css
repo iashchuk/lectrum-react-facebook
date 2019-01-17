@@ -1,8 +1,51 @@
 .statusBar {
     display: flex;
+    z-index: 1;
+    top: 0;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 42px;
-    margin-bottom: 20px;
-    background-color: #4267b2;
     border-bottom: #29487d;
+    background-color: #4267b2;
+    margin-bottom: 20px;
+
+    & .status {
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        width: 70px;
+        min-width: max-content;
+        height: 24px;
+        background: #e9ebee;
+        left: 5px;
+        color: #365899;
+        border: 1px solid #365899;
+        border-radius: 5px;
+        font-size: 14px;
+        user-select: none;
+        cursor: pointer;
+
+        & span {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+    }
+
+    & .online {
+        & span {
+            background: #578843;
+            box-shadow: 0 0 2px #578843;
+        }
+    }
+
+    & .offline {
+        & span {
+            background: #f40009;
+            box-shadow: 0 0 2px #f40009;
+        }
+    }
 }
