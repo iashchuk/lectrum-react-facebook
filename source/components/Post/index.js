@@ -6,21 +6,19 @@ import moment from 'moment';
 import Styles from './styles.m.css';
 
 // Components
-import { Consumer } from 'components/HOC/withProfile';
+import withCompose from 'components/HOC/withCompose';
 
-export default class Post extends Component {
+class Post extends Component {
     render() {
         return (
-            <Consumer>
-                {(context) => (
-                    <section className = { Styles.post }>
-                        <img src = { context.avatar } />
-                        <a>{`${context.currentUserFirstName} ${context.currentUserLastName}`}</a>
-                        <time>{moment().format('MMMM D h:mm:ss a')}</time>
-                        <p>Howdy</p>
-                    </section>
-                )}
-            </Consumer>
+            <section className = { Styles.post }>
+                <img src = { this.props.avatar } />
+                <a>{`${this.props.currentUserFirstName} ${this.props.currentUserLastName}`}</a>
+                <time>{moment().format('MMMM D h:mm:ss a')}</time>
+                <p>Howdy</p>
+            </section>
         );
     }
 }
+
+export default withCompose(Post);

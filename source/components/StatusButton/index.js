@@ -4,21 +4,19 @@ import React, { Component } from 'react';
 import Styles from './styles.m.css';
 
 // Components
-import { Consumer } from 'components/HOC/withProfile';
+import withCompose from 'components/HOC/withCompose';
 
-export default class StatusBar extends Component {
+class StatusButton extends Component {
     render() {
         return (
-            <Consumer>
-                {(context) => (
-                    <button className = { Styles.statusButton }>
-                        <img src = { context.avatar } />
-                        <span>{context.currentUserFirstName}</span>
-                        &nbsp;
-                        <span>{context.currentUserLastName}</span>
-                    </button>
-                )}
-            </Consumer>
+            <button className = { Styles.statusButton }>
+                <img src = { this.props.avatar } />
+                <span>{this.props.currentUserFirstName}</span>
+                &nbsp;
+                <span>{this.props.currentUserLastName}</span>
+            </button>
         );
     }
 }
+
+export default withCompose(StatusButton);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Consumer } from 'components/HOC/withProfile';
+import { Consumer } from './withProfile';
 
 export default (ComponentWrapped) => {
     return (props) => {
