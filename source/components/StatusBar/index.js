@@ -10,7 +10,7 @@ export default class StatusBar extends Component {
     render() {
         return (
             <section className = { Styles.statusBar }>
-                <StatusButton { ...this.props } />
+                <StatusButton />
             </section>
         );
     }
