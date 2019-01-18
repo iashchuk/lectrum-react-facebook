@@ -8,12 +8,14 @@ import withCompose from 'components/HOC/withCompose';
 
 class StatusButton extends Component {
     render() {
+        const { avatar, currentUserFirstName, currentUserLastName } = this.props;
+
         return (
             <button className = { Styles.statusButton }>
-                <img src = { this.props.avatar } />
-                <span>{this.props.currentUserFirstName}</span>
+                <img src = { avatar } />
+                <span>{currentUserFirstName}</span>
                 &nbsp;
-                <span>{this.props.currentUserLastName}</span>
+                <span>{currentUserLastName}</span>
             </button>
         );
     }

@@ -10,10 +10,12 @@ import withCompose from 'components/HOC/withCompose';
 
 class Post extends Component {
     render() {
+        const { avatar, currentUserFirstName, currentUserLastName } = this.props;
+
         return (
             <section className = { Styles.post }>
-                <img src = { this.props.avatar } />
-                <a>{`${this.props.currentUserFirstName} ${this.props.currentUserLastName}`}</a>
+                <img src = { avatar } />
+                <a>{`${currentUserFirstName} ${currentUserLastName}`}</a>
                 <time>{moment().format('MMMM D h:mm:ss a')}</time>
                 <p>Howdy</p>
             </section>

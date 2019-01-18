@@ -8,13 +8,13 @@ import withCompose from 'components/HOC/withCompose';
 
 class Composer extends Component {
     render() {
+        const { avatar, currentUserFirstName } = this.props;
+
         return (
             <section className = { Styles.composer }>
-                <img src = { this.props.avatar } />
+                <img src = { avatar } />
                 <form>
-                    <textarea
-                        placeholder = { `What\'s on your mind, ${this.props.currentUserFirstName}` }
-                    />
+                    <textarea placeholder = { `What\'s on your mind, ${currentUserFirstName}` } />
                     <input
                         type = 'submit'
                         value = 'Post'
