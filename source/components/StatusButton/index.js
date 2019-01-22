@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 //Instruments
 import Styles from './styles.m.css';
 
-export default class StatusBar extends Component {
+// Components
+import withCompose from 'components/HOC/withCompose';
+
+class StatusButton extends Component {
     render() {
         const { avatar, currentUserFirstName, currentUserLastName } = this.props;
 
@@ -17,3 +20,5 @@ export default class StatusBar extends Component {
         );
     }
 }
+
+export default withCompose(StatusButton);

@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 //Instruments
 import Styles from './styles.m.css';
 
-export default class Composer extends Component {
+// Components
+import withCompose from 'components/HOC/withCompose';
+
+class Composer extends Component {
     render() {
         const { avatar, currentUserFirstName } = this.props;
 
@@ -21,3 +24,5 @@ export default class Composer extends Component {
         );
     }
 }
+
+export default withCompose(Composer);

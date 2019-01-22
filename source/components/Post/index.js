@@ -5,7 +5,10 @@ import moment from 'moment';
 // Instruments
 import Styles from './styles.m.css';
 
-export default class Post extends Component {
+// Components
+import withCompose from 'components/HOC/withCompose';
+
+class Post extends Component {
     render() {
         const { avatar, currentUserFirstName, currentUserLastName } = this.props;
 
@@ -19,3 +22,5 @@ export default class Post extends Component {
         );
     }
 }
+
+export default withCompose(Post);
