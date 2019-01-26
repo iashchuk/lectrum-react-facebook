@@ -4,7 +4,7 @@ import moment from 'moment';
 
 //Instruments
 import Styles from './styles.m.css';
-import { getUniqueID } from 'instruments';
+import { getUniqueID, delay } from 'instruments';
 
 // Components
 import StatusBar from 'components/StatusBar';
@@ -16,6 +16,7 @@ export default class Feed extends Component {
     constructor() {
         super();
         this._createPost = this._createPost.bind(this);
+        this._setLoadingState = this._setLoadingState.bind(this);
     }
 
     state = {
@@ -23,18 +24,29 @@ export default class Feed extends Component {
             { id: '123', comment: 'Hi there!', created: 1526825076849 },
             { id: '456', comment: 'Good evening!', created: 1526325076849 },
         ],
-        isLoading: true,
+        isLoading: false,
     };
 
-    _createPost(comment) {
+    _setLoadingState(state) {
+        this.setState({
+            isLoading: state,
+        });
+    }
+
+    async _createPost(comment) {
+        this._setLoadingState(true);
+
         const post = {
             id:      getUniqueID(),
             created: moment.now(),
             comment,
         };
 
+        await delay(1200);
+
         this.setState(({ posts }) => ({
-            posts: [ post, ...posts ],
+            posts:     [ post, ...posts ],
+            isLoading: false,
         }));
     }
 
