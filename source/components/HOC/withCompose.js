@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Consumer } from './withProfile';
+import { getDisplayName } from './helpers';
 
 export default (ComponentWrapped) => {
-    return (props) => {
-        return (
-            <Consumer>{(context) => (
-                <ComponentWrapped
-                    { ...props }
-                    { ...context }
-                />
-            )}
-            </Consumer>
-        );
-    };
+    class WithCompose extends Component {
+        render() {
+            return (
+                <Consumer>
+                    {(context) => (
+                        <ComponentWrapped
+                            { ...this.props }
+                            { ...context }
+                        />
+                    )}
+                </Consumer>
+            );
+        }
+    }
+
+    WithCompose.displayName = `WithState(${getDisplayName(ComponentWrapped)})`;
+
+    return WithCompose;
 };
