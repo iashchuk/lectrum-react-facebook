@@ -7,22 +7,24 @@ import Styles from './styles.m.css';
 import { getUniqueID, delay } from 'instruments';
 
 // Components
+import withCompose from 'components/HOC/withCompose';
 import StatusBar from 'components/StatusBar';
 import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 
-export default class Feed extends Component {
+class Feed extends Component {
     constructor() {
         super();
         this._createPost = this._createPost.bind(this);
         this._setLoadingState = this._setLoadingState.bind(this);
+        this._likePost = this._likePost.bind(this);
     }
 
     state = {
         posts: [
-            { id: '123', comment: 'Hi there!', created: 1526825076849 },
-            { id: '456', comment: 'Good evening!', created: 1526325076849 },
+            { id: '123', comment: 'Hi there!', created: 1526825076849, likes: [] },
+            { id: '456', comment: 'Good evening!', created: 1526325076849, likes: [] },
         ],
         isLoading: false,
     };
@@ -40,6 +42,7 @@ export default class Feed extends Component {
             id:      getUniqueID(),
             created: moment.now(),
             comment,
+            likes:   [],
         };
 
         await delay(1200);
@@ -50,6 +53,36 @@ export default class Feed extends Component {
         }));
     }
 
+    async _likePost(id) {
+        const { currentUserFirstName, currentUserLastName } = this.props;
+        this._setLoadingState(true);
+        await delay(1200);
+
+        const posts = [ ...this.state.posts ];
+
+        const newPosts = posts.map((post) => {
+            if (post.id === id) {
+                return {
+                    ...post,
+                    likes: [
+                        {
+                            id:        getUniqueID(),
+                            firstName: currentUserFirstName,
+                            lastName:  currentUserLastName,
+                        },
+                    ],
+                };
+            }
+
+            return post;
+        });
+
+        this.setState({
+            posts:     newPosts,
+            isLoading: false,
+        });
+    }
+
     render() {
         const { posts, isLoading } = this.state;
 
@@ -58,6 +91,7 @@ export default class Feed extends Component {
                 <Post
                     key = { post.id }
                     { ...post }
+                    _likePost = { this._likePost }
                 />
             );
         });
@@ -72,3 +106,5 @@ export default class Feed extends Component {
         );
     }
 }
+
+export default withCompose(Feed);
