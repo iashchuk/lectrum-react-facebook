@@ -26,13 +26,18 @@ class Post extends Component {
             currentUserLastName,
             comment,
             created,
-            _likePost,
             id,
             likes,
+            _likePost,
+            _removePost,
         } = this.props;
 
         return (
             <section className = { Styles.post }>
+                <span
+                    className = { Styles.cross }
+                    onClick = { () => _removePost(id) }
+                />
                 <img src = { avatar } />
                 <a>{`${currentUserFirstName} ${currentUserLastName}`}</a>
                 <time>{moment.unix(created).format('MMMM D h:mm:ss a')}</time>

@@ -17,6 +17,7 @@ class Feed extends Component {
     constructor() {
         super();
         this._createPost = this._createPost.bind(this);
+        this._removePost = this._removePost.bind(this);
         this._setLoadingState = this._setLoadingState.bind(this);
         this._likePost = this._likePost.bind(this);
     }
@@ -52,6 +53,14 @@ class Feed extends Component {
             isLoading: false,
         }));
     }
+
+    _removePost = (id) => {
+        this.setState(({ posts }) => {
+            const index = posts.findIndex((post) => post.id === id);
+
+            return { posts: [ ...posts.slice(0, index), ...posts.slice(index + 1) ] };
+        });
+    };
 
     async _likePost(id) {
         const { currentUserFirstName, currentUserLastName } = this.props;
@@ -92,6 +101,7 @@ class Feed extends Component {
                     key = { post.id }
                     { ...post }
                     _likePost = { this._likePost }
+                    _removePost = { this._removePost }
                 />
             );
         });
