@@ -56,9 +56,9 @@ class Feed extends Component {
 
     _removePost = (id) => {
         this.setState(({ posts }) => {
-            const index = posts.findIndex((post) => post.id === id);
+            const newPosts = posts.filter((post) => post.id !== id);
 
-            return { posts: [ ...posts.slice(0, index), ...posts.slice(index + 1) ] };
+            return { posts: newPosts };
         });
     };
 
