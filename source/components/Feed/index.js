@@ -108,7 +108,7 @@ class Feed extends Component {
 
         return (
             <section className = { Styles.feed }>
-                <Spinner isSpinning = { isLoading } />
+                <Spinner isLoading = { isLoading } />
                 <StatusBar />
                 <Composer _createPost = { this._createPost } />
                 {postsJSX}
