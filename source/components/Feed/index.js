@@ -5,6 +5,7 @@ import moment from 'moment';
 //Instruments
 import Styles from './styles.m.css';
 import { getUniqueID, delay } from 'instruments';
+import { api } from 'config/api';
 
 // Components
 import { withProfile } from 'components/HOC/withProfile';
@@ -24,9 +25,28 @@ class Feed extends Component {
         isLoading: false,
     };
 
+    componentDidMount() {
+        this._fetchPosts();
+    }
+
     _setLoadingState = (state) => {
         this.setState({
             isLoading: state,
+        });
+    };
+
+    _fetchPosts = async () => {
+        this._setLoadingState(true);
+
+        const response = await fetch(api, {
+            method: 'GET',
+        });
+
+        const { data: posts } = await response.json();
+
+        this.setState({
+            posts,
+            isLoading: false,
         });
     };
 
