@@ -1,11 +1,10 @@
 // Core
 import React, { Component } from 'react';
-import moment from 'moment';
 
 //Instruments
 import Styles from './styles.m.css';
 import { getUniqueID, delay } from 'instruments';
-import { api } from 'config/api';
+import { api, TOKEN } from 'config/api';
 
 // Components
 import { withProfile } from 'components/HOC/withProfile';
@@ -18,10 +17,7 @@ import Catcher from 'components/Catcher';
 @withProfile
 class Feed extends Component {
     state = {
-        posts: [
-            { id: '123', comment: 'Hi there!', created: 1526825076849, likes: [] },
-            { id: '456', comment: 'Good evening!', created: 1526325076849, likes: [] },
-        ],
+        posts:     [],
         isLoading: false,
     };
 
@@ -53,14 +49,16 @@ class Feed extends Component {
     _createPost = async (comment) => {
         this._setLoadingState(true);
 
-        const post = {
-            id:      getUniqueID(),
-            created: moment.now(),
-            comment,
-            likes:   [],
-        };
+        const response = await fetch(api, {
+            method:  'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization:  TOKEN,
+            },
+            body: JSON.stringify({ comment }),
+        });
 
-        await delay(1200);
+        const { data: post } = await response.json();
 
         this.setState(({ posts }) => ({
             posts:     [ post, ...posts ],
