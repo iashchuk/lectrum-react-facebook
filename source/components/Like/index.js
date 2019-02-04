@@ -6,7 +6,7 @@ import cx from 'classnames';
 import Styles from './styles.m.css';
 
 // Components
-import withCompose from 'components/HOC/withCompose';
+import { withProfile } from 'components/HOC/withProfile';
 
 class Like extends Component {
     static propTypes = {
@@ -109,4 +109,4 @@ class Like extends Component {
     }
 }
 
-export default withCompose(Like);
+export default withProfile(Like);

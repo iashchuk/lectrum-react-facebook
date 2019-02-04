@@ -7,7 +7,7 @@ import Styles from './styles.m.css';
 import { getUniqueID, delay } from 'instruments';
 
 // Components
-import withCompose from 'components/HOC/withCompose';
+import { withProfile } from 'components/HOC/withProfile';
 import StatusBar from 'components/StatusBar';
 import Composer from 'components/Composer';
 import Post from 'components/Post';
@@ -109,4 +109,4 @@ class Feed extends Component {
     }
 }
 
-export default withCompose(Feed);
+export default withProfile(Feed);

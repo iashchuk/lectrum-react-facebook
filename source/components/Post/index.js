@@ -7,7 +7,7 @@ import { func, string, number, array } from 'prop-types';
 import Styles from './styles.m.css';
 
 // Components
-import withCompose from 'components/HOC/withCompose';
+import { withProfile } from 'components/HOC/withProfile';
 import Like from 'components/Like';
 
 class Post extends Component {
@@ -52,4 +52,4 @@ class Post extends Component {
     }
 }
 
-export default withCompose(Post);
+export default withProfile(Post);

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Styles from './styles.m.css';
 
 // Components
-import withCompose from 'components/HOC/withCompose';
+import { withProfile } from 'components/HOC/withProfile';
 
 class StatusButton extends Component {
     render() {
@@ -21,4 +21,4 @@ class StatusButton extends Component {
     }
 }
 
-export default withCompose(StatusButton);
+export default withProfile(StatusButton);

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Styles from './styles.m.css';
 
 // Components
-import withCompose from 'components/HOC/withCompose';
+import { withProfile } from 'components/HOC/withProfile';
 
 class Composer extends Component {
     static propTypes = {
@@ -72,4 +72,4 @@ class Composer extends Component {
     }
 }
 
-export default withCompose(Composer);
+export default withProfile(Composer);
