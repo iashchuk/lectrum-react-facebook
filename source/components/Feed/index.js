@@ -75,33 +75,21 @@ class Feed extends Component {
     };
 
     _likePost = async (id) => {
-        const { currentUserFirstName, currentUserLastName } = this.props;
         this._setLoadingState(true);
-        await delay(1200);
 
-        const posts = [ ...this.state.posts ];
-
-        const newPosts = posts.map((post) => {
-            if (post.id === id) {
-                return {
-                    ...post,
-                    likes: [
-                        {
-                            id:        getUniqueID(),
-                            firstName: currentUserFirstName,
-                            lastName:  currentUserLastName,
-                        },
-                    ],
-                };
-            }
-
-            return post;
+        const response = await fetch(`${api}/${id}`, {
+            method:  'PUT',
+            headers: {
+                Authorization: TOKEN,
+            },
         });
 
-        this.setState({
-            posts:     newPosts,
+        const { data: likedPost } = await response.json();
+
+        this.setState(({ posts }) => ({
+            posts:     posts.map((post) => post.id === likedPost.id ? likedPost : post),
             isLoading: false,
-        });
+        }));
     };
 
     render() {
