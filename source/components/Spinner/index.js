@@ -9,9 +9,9 @@ const portal = document.getElementById('spinner');
 
 class Spinner extends Component {
     render() {
-        const { isSpinning } = this.props;
+        const { isLoading } = this.props;
 
-        return createPortal(isSpinning ? <div className = { Styles.spinner } /> : null, portal);
+        return createPortal(isLoading ? <div className = { Styles.spinner } /> : null, portal);
     }
 }
 

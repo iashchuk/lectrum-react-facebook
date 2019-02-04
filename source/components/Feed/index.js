@@ -7,21 +7,14 @@ import Styles from './styles.m.css';
 import { getUniqueID, delay } from 'instruments';
 
 // Components
-import withCompose from 'components/HOC/withCompose';
+import { withProfile } from 'components/HOC/withProfile';
 import StatusBar from 'components/StatusBar';
 import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 
+@withProfile
 class Feed extends Component {
-    constructor() {
-        super();
-        this._createPost = this._createPost.bind(this);
-        this._removePost = this._removePost.bind(this);
-        this._setLoadingState = this._setLoadingState.bind(this);
-        this._likePost = this._likePost.bind(this);
-    }
-
     state = {
         posts: [
             { id: '123', comment: 'Hi there!', created: 1526825076849, likes: [] },
@@ -30,13 +23,13 @@ class Feed extends Component {
         isLoading: false,
     };
 
-    _setLoadingState(state) {
+    _setLoadingState = (state) => {
         this.setState({
             isLoading: state,
         });
-    }
+    };
 
-    async _createPost(comment) {
+    _createPost = async (comment) => {
         this._setLoadingState(true);
 
         const post = {
@@ -52,17 +45,17 @@ class Feed extends Component {
             posts:     [ post, ...posts ],
             isLoading: false,
         }));
-    }
+    };
 
     _removePost = (id) => {
         this.setState(({ posts }) => {
-            const index = posts.findIndex((post) => post.id === id);
+            const newPosts = posts.filter((post) => post.id !== id);
 
-            return { posts: [ ...posts.slice(0, index), ...posts.slice(index + 1) ] };
+            return { posts: newPosts };
         });
     };
 
-    async _likePost(id) {
+    _likePost = async (id) => {
         const { currentUserFirstName, currentUserLastName } = this.props;
         this._setLoadingState(true);
         await delay(1200);
@@ -90,7 +83,7 @@ class Feed extends Component {
             posts:     newPosts,
             isLoading: false,
         });
-    }
+    };
 
     render() {
         const { posts, isLoading } = this.state;
@@ -108,7 +101,7 @@ class Feed extends Component {
 
         return (
             <section className = { Styles.feed }>
-                <Spinner isSpinning = { isLoading } />
+                <Spinner isLoading = { isLoading } />
                 <StatusBar />
                 <Composer _createPost = { this._createPost } />
                 {postsJSX}
@@ -117,4 +110,4 @@ class Feed extends Component {
     }
 }
 
-export default withCompose(Feed);
+export default Feed;

@@ -5,37 +5,30 @@ import PropTypes from 'prop-types';
 import Styles from './styles.m.css';
 
 // Components
-import withCompose from 'components/HOC/withCompose';
+import { withProfile } from 'components/HOC/withProfile';
 
+@withProfile
 class Composer extends Component {
     static propTypes = {
         _createPost: PropTypes.func.isRequired,
     };
 
-    constructor() {
-        super();
-        this._updateComment = this._updateComment.bind(this);
-        this._handleFormSubmit = this._handleFormSubmit.bind(this);
-        this._submitComment = this._submitComment.bind(this);
-        this._submitOnEnter = this._submitOnEnter.bind(this);
-    }
-
     state = {
         comment: '',
     };
 
-    _updateComment(event) {
+    _updateComment = (event) => {
         this.setState({
             comment: event.target.value,
         });
-    }
+    };
 
-    _handleFormSubmit(event) {
+    _handleFormSubmit = (event) => {
         event.preventDefault();
         this._submitComment();
-    }
+    };
 
-    _submitComment() {
+    _submitComment = () => {
         const { comment } = this.state;
 
         if (!comment) {
@@ -46,15 +39,15 @@ class Composer extends Component {
         this.setState({
             comment: '',
         });
-    }
+    };
 
-    _submitOnEnter(event) {
+    _submitOnEnter = (event) => {
         const enterKey = event.key === 'Enter';
         if (enterKey) {
             event.preventDefault();
             this._submitComment();
         }
-    }
+    };
 
     render() {
         const { comment } = this.state;
@@ -80,4 +73,4 @@ class Composer extends Component {
     }
 }
 
-export default withCompose(Composer);
+export default Composer;
