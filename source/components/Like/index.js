@@ -8,6 +8,7 @@ import Styles from './styles.m.css';
 // Components
 import { withProfile } from 'components/HOC/withProfile';
 
+@withProfile
 class Like extends Component {
     static propTypes = {
         _likePost: func.isRequired,
@@ -109,4 +110,4 @@ class Like extends Component {
     }
 }
 
-export default withProfile(Like);
+export default Like;

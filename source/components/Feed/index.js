@@ -13,6 +13,7 @@ import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 
+@withProfile
 class Feed extends Component {
     state = {
         posts: [
@@ -109,4 +110,4 @@ class Feed extends Component {
     }
 }
 
-export default withProfile(Feed);
+export default Feed;
