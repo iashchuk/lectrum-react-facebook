@@ -66,7 +66,16 @@ class Feed extends Component {
         }));
     };
 
-    _removePost = (id) => {
+    _removePost = async (id) => {
+        this._setLoadingState(true);
+
+        await fetch(`${api}/${id}`, {
+            method:  'DELETE',
+            headers: {
+                Authorization: TOKEN,
+            },
+        });
+
         this.setState(({ posts }) => {
             const newPosts = posts.filter((post) => post.id !== id);
 
