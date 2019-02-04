@@ -14,14 +14,6 @@ import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 
 class Feed extends Component {
-    constructor() {
-        super();
-        this._createPost = this._createPost.bind(this);
-        this._removePost = this._removePost.bind(this);
-        this._setLoadingState = this._setLoadingState.bind(this);
-        this._likePost = this._likePost.bind(this);
-    }
-
     state = {
         posts: [
             { id: '123', comment: 'Hi there!', created: 1526825076849, likes: [] },
@@ -30,13 +22,13 @@ class Feed extends Component {
         isLoading: false,
     };
 
-    _setLoadingState(state) {
+    _setLoadingState = (state) => {
         this.setState({
             isLoading: state,
         });
-    }
+    };
 
-    async _createPost(comment) {
+    _createPost = async (comment) => {
         this._setLoadingState(true);
 
         const post = {
@@ -52,7 +44,7 @@ class Feed extends Component {
             posts:     [ post, ...posts ],
             isLoading: false,
         }));
-    }
+    };
 
     _removePost = (id) => {
         this.setState(({ posts }) => {
@@ -62,7 +54,7 @@ class Feed extends Component {
         });
     };
 
-    async _likePost(id) {
+    _likePost = async (id) => {
         const { currentUserFirstName, currentUserLastName } = this.props;
         this._setLoadingState(true);
         await delay(1200);
@@ -90,7 +82,7 @@ class Feed extends Component {
             posts:     newPosts,
             isLoading: false,
         });
-    }
+    };
 
     render() {
         const { posts, isLoading } = this.state;
