@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 
 //Instruments
 import Styles from './styles.m.css';
-import { getUniqueID, delay } from 'instruments';
 import { api, TOKEN } from 'config/api';
 
 // Components
@@ -23,6 +22,11 @@ class Feed extends Component {
 
     componentDidMount() {
         this._fetchPosts();
+        this.refetch = setInterval(this._fetchPosts, 5000);
+    }
+
+    componentWillMount() {
+        clearInterval(this.refetch);
     }
 
     _setLoadingState = (state) => {
