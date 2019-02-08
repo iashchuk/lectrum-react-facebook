@@ -15,6 +15,7 @@ import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 import Catcher from 'components/Catcher';
+import Postman from '../Postman';
 
 @withProfile
 class Feed extends Component {
@@ -181,6 +182,7 @@ class Feed extends Component {
                     onEnter = { this._animateComposerEnter }>
                     <Composer _createPost = { this._createPost } />
                 </Transition>
+                <Postman />
                 {postsJSX}
             </section>
         );
