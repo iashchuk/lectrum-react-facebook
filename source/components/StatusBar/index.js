@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Transition } from 'react-transition-group';
+import { fromTo } from 'gsap';
 
 //Instruments
 import Styles from './styles.m.css';
@@ -32,14 +34,24 @@ export default class StatusBar extends Component {
         socket.removeListener('disconnect');
     }
 
+    _animateStatusbarEnter = (statusBar) => {
+        fromTo(statusBar, 1, { opacity: 0 }, { opacity: 1 });
+    };
+
     render() {
         const { online } = this.state;
 
         return (
-            <section className = { Styles.statusBar }>
-                <StatusOnline online = { online } />
-                <StatusButton />
-            </section>
+            <Transition
+                appear
+                in
+                timeout = { 1000 }
+                onEnter = { this._animateStatusbarEnter }>
+                <section className = { Styles.statusBar }>
+                    <StatusOnline online = { online } />
+                    <StatusButton />
+                </section>
+            </Transition>
         );
     }
 }
