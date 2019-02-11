@@ -5,6 +5,7 @@
 /build/
 /coverage/
 /flow-coverage/
+/__drafts__
 
 # Files
 *.log
