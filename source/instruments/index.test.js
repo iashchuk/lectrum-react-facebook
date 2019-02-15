@@ -1,5 +1,5 @@
 // Core
-import { sum, delay } from './';
+import { sum, delay, getUniqueID } from './';
 
 jest.setTimeout(10000);
 
@@ -31,4 +31,19 @@ describe('instruments: delay', () => {
     // test('delay function should return a resolved promise with text', async () => {
     //     await expect(delay()).resolves.toBe('A resolve promise');
     // });
+});
+
+describe('instruments: getUniqueID', () => {
+    test('getUniqueID function should be a function', () => {
+        expect(getUniqueID).toBeInstanceOf(Function);
+    });
+
+    test('getUniqueID function should throw, when called with non-number type as argument', () => {
+        expect(() => getUniqueID('hello')).toThrow();
+    });
+
+    test('getUniqueID function should produce a string of a desired given length', () => {
+        expect(getUniqueID(5)).toHaveLength(5);
+        expect(getUniqueID(13)).toHaveLength(13);
+    });
 });
