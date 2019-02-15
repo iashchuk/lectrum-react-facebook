@@ -156,6 +156,14 @@ class Feed extends Component {
         fromTo(composer, 1, { opacity: 0, rotationX: 50 }, { opacity: 1, rotationX: 0 });
     };
 
+    _animatePostmanEnter = (postman) => {
+        fromTo(postman, 1, { x: 500 }, { x: 0 });
+    };
+
+    _animatePostmanEntered = (postman) => {
+        fromTo(postman, 1, { x: 0 }, { x: 500 });
+    };
+
     render() {
         const { posts, isLoading } = this.state;
 
@@ -192,7 +200,14 @@ class Feed extends Component {
                     onEnter = { this._animateComposerEnter }>
                     <Composer _createPost = { this._createPost } />
                 </Transition>
-                <Postman />
+                <Transition
+                    appear
+                    in
+                    timeout = { 5000 }
+                    onEnter = { this._animatePostmanEnter }
+                    onEntered = { this._animatePostmanEntered }>
+                    <Postman />
+                </Transition>
                 <TransitionGroup>{postsJSX}</TransitionGroup>
             </section>
         );
