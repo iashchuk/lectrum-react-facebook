@@ -1,5 +1,5 @@
 // Core
-import { sum, delay, getUniqueID } from './';
+import { sum, delay, getUniqueID, getFullApiUrl } from './';
 
 jest.setTimeout(10000);
 
@@ -8,8 +8,12 @@ describe('instruments: sum', () => {
         expect(sum).toBeInstanceOf(Function);
     });
 
-    test('sum function should throw, when called with non-number type as arguments', () => {
-        expect(() => sum(2, 'hello')).toThrow();
+    test('sum function should throw, when called with non-number type as first argument', () => {
+        expect(() => sum('hello', 10)).toThrow();
+    });
+
+    test('sum function should throw, when called with non-number type as second argument', () => {
+        expect(() => sum(10, 'hello')).toThrow();
     });
 
     test('sum function should return an addition of two arguments', () => {
@@ -27,10 +31,6 @@ describe('instruments: delay', () => {
     test('delay function should return a resolved promise in seTimeout(2000)', async () => {
         await expect(delay(2000)).resolves.toBeUndefined();
     });
-
-    // test('delay function should return a resolved promise with text', async () => {
-    //     await expect(delay()).resolves.toBe('A resolve promise');
-    // });
 });
 
 describe('instruments: getUniqueID', () => {
@@ -45,5 +45,19 @@ describe('instruments: getUniqueID', () => {
     test('getUniqueID function should produce a string of a desired given length', () => {
         expect(getUniqueID(5)).toHaveLength(5);
         expect(getUniqueID(13)).toHaveLength(13);
+    });
+});
+
+describe('instruments: getFullApiUrl', () => {
+    test('getFullApiUrl function should be a function', () => {
+        expect(getFullApiUrl).toBeInstanceOf(Function);
+    });
+
+    test('getFullApiUrl function should throw, when called with non-string type as arguments', () => {
+        expect(() => getFullApiUrl(2, 3)).toThrow();
+    });
+
+    test('getFullApiUrl function should match a string of a desired given', () => {
+        expect(getFullApiUrl('api', 'GROUP_ID')).toMatch(/api\/GROUP_ID/);
     });
 });
