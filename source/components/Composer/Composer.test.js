@@ -7,8 +7,14 @@ const props = {
     _createPost: jest.fn(),
 };
 
+const comment = 'Merry christmas';
+
 const initialState = {
     comment: '',
+};
+
+const updatedState = {
+    comment,
 };
 
 const result = mount(<Composer { ...props } />);
@@ -17,6 +23,7 @@ describe('composer: component', () => {
     test('should have 1 <section> element', () => {
         expect(result.find('section')).toHaveLength(1);
     });
+
     test('should have 1 <form> element', () => {
         expect(result.find('form')).toHaveLength(1);
     });
@@ -39,6 +46,22 @@ describe('composer: state', () => {
         expect(result.state()).toEqual(initialState);
     });
     test('textarea value should be empty initially', () => {
+        expect(result.find('textarea').text()).toBe('');
+    });
+
+    test('should respond to state change properly', () => {
+        result.setState({
+            comment,
+        });
+
+        expect(result.state()).toEqual(updatedState);
+        expect(result.find('textarea').text()).toBe(comment);
+
+        result.setState({
+            comment: '',
+        });
+
+        expect(result.state()).toEqual(initialState);
         expect(result.find('textarea').text()).toBe('');
     });
 });
