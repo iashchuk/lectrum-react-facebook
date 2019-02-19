@@ -4,7 +4,9 @@ import { mount } from 'enzyme';
 import { Composer } from './';
 
 const props = {
-    _createPost: jest.fn(),
+    _createPost:          jest.fn(),
+    avatar:               'avatar',
+    currentUserFirstName: 'Виталий',
 };
 
 const comment = 'Merry christmas';
@@ -21,6 +23,8 @@ const result = mount(<Composer { ...props } />);
 
 const _submitCommentSpy = jest.spyOn(result.instance(), '_submitComment');
 const _handleFormSubmitSpy = jest.spyOn(result.instance(), '_handleFormSubmit');
+const _updateCommentSpy = jest.spyOn(result.instance(), '_updateComment');
+const _submitOnEnterSpy = jest.spyOn(result.instance(), '_submitOnEnter');
 
 describe('composer: component', () => {
     test('should have 1 <section> element', () => {
@@ -76,7 +80,6 @@ describe('composer: events', () => {
                 value: comment,
             },
         });
-
         expect(result.find('textarea').text()).toBe(comment);
         expect(result.state()).toEqual(updatedState);
     });
@@ -94,5 +97,28 @@ describe('composer: events', () => {
     test('_submitComment and _handleFormSubmit class methods should be invoked once after form submission', () => {
         expect(_submitCommentSpy).toHaveBeenCalledTimes(1);
         expect(_handleFormSubmitSpy).toHaveBeenCalledTimes(1);
+    });
+
+    test('_updateCommentSpy class method should be invoked once after form submission', () => {
+        expect(_updateCommentSpy).toHaveBeenCalledTimes(1);
+    });
+
+    test('should handle form "_submitOnEnter" event', () => {
+        result.find('textarea').simulate('keypress', {
+            key: 'Enter',
+        });
+
+        expect(_submitOnEnterSpy).toHaveBeenCalledTimes(1);
+        expect(result.state()).toEqual(initialState);
+    });
+});
+
+describe('composer: props', () => {
+    test('currentUserFirstName should be a string', () => {
+        expect(typeof result.prop('currentUserFirstName')).toBe('string');
+    });
+
+    test('avatar should be a string', () => {
+        expect(typeof result.prop('avatar')).toBe('string');
     });
 });
