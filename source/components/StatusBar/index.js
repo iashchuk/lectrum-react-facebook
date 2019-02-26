@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Transition } from 'react-transition-group';
 import { fromTo } from 'gsap';
+import { NavLink } from 'react-router-dom';
 
 //Instruments
 import Styles from './styles.m.css';
@@ -8,6 +9,7 @@ import { socket } from 'socket/init';
 
 // Components
 import StatusButton from 'components/StatusButton';
+import NavButton from 'components/NavButton';
 import StatusOnline from 'components/StatusOnline';
 
 export default class StatusBar extends Component {
@@ -49,7 +51,16 @@ export default class StatusBar extends Component {
                 onEnter = { this._animateStatusbarEnter }>
                 <section className = { Styles.statusBar }>
                     <StatusOnline online = { online } />
-                    <StatusButton />
+                    <NavLink
+                        activeClassName = { Styles.statusLink }
+                        to = '/profile'>
+                        <StatusButton />
+                    </NavLink>
+                    <NavLink
+                        activeClassName = { Styles.statusLink }
+                        to = '/feed'>
+                        <NavButton label = 'Feed' />
+                    </NavLink>
                 </section>
             </Transition>
         );
