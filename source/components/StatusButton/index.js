@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 //Instruments
 import Styles from './styles.m.css';
@@ -12,12 +13,21 @@ class StatusButton extends Component {
         const { avatar, currentUserFirstName, currentUserLastName } = this.props;
 
         return (
-            <button className = { Styles.statusButton }>
-                <img src = { avatar } />
-                <span>{currentUserFirstName}</span>
-                &nbsp;
-                <span>{currentUserLastName}</span>
-            </button>
+            <Fragment>
+                <Link
+                    className = { Styles.statusButton }
+                    to = '/profile'>
+                    <img src = { avatar } />
+                    <span>{currentUserFirstName}</span>
+                    &nbsp;
+                    <span>{currentUserLastName}</span>
+                </Link>
+                <Link
+                    className = { Styles.statusButton }
+                    to = '/feed'>
+                    Feed
+                </Link>
+            </Fragment>
         );
     }
 }
