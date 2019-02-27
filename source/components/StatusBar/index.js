@@ -61,6 +61,11 @@ export default class StatusBar extends Component {
                         to = '/feed'>
                         <NavButton label = 'Feed' />
                     </NavLink>
+                    <NavLink
+                        activeClassName = { Styles.statusLink }
+                        to = '/secret'>
+                        <NavButton label = 'Secret page' />
+                    </NavLink>
                 </section>
             </Transition>
         );

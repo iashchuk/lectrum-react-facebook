@@ -1,5 +1,5 @@
 // Core
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 //Components
 import { withProfile } from 'components/HOC/withProfile';
@@ -10,7 +10,14 @@ import Styles from './styles.m.css';
 @withProfile
 class Profile extends Component {
     render() {
-        const { currentUserFirstName, currentUserLastName, avatar } = this.props;
+        const {
+            currentUserFirstName,
+            currentUserLastName,
+            avatar,
+            isLoggedIn,
+            onLogin,
+            onLogout,
+        } = this.props;
 
         return (
             <section className = { Styles.profile }>
@@ -18,6 +25,14 @@ class Profile extends Component {
                     Welcome, {currentUserFirstName} {currentUserLastName}
                 </h1>
                 <img src = { avatar } />
+                {!isLoggedIn ? (
+                    <Fragment>
+                        <h2>Для просмотра закрытой страницы необходимо нажать кнопку</h2>
+                        <button onClick = { onLogin }>Получить доступ</button>
+                    </Fragment>
+                ) : (
+                    <button onClick = { onLogout }>Скрыть закрытую страницу</button>
+                )}
             </section>
         );
     }
