@@ -15,8 +15,8 @@ class Profile extends Component {
             currentUserLastName,
             avatar,
             isLoggedIn,
-            onLogin,
-            onLogout,
+            _onLogin,
+            _onLogout,
         } = this.props;
 
         return (
@@ -28,10 +28,10 @@ class Profile extends Component {
                 {!isLoggedIn ? (
                     <Fragment>
                         <h2>Для просмотра закрытой страницы необходимо нажать кнопку</h2>
-                        <button onClick = { onLogin }>Получить доступ</button>
+                        <button onClick = { _onLogin }>Получить доступ</button>
                     </Fragment>
                 ) : (
-                    <button onClick = { onLogout }>Скрыть закрытую страницу</button>
+                    <button onClick = { _onLogout }>Закрытыть доступ к закрытой странице</button>
                 )}
             </section>
         );

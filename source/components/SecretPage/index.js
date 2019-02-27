@@ -11,13 +11,13 @@ import Styles from './styles.m.css';
 @withProfile
 class SecretPage extends Component {
     render() {
-        const { secretPicture, isLoggedIn, onLogout } = this.props;
+        const { secretPicture, isLoggedIn, _onLogout } = this.props;
 
         if (isLoggedIn) {
             return (
                 <div className = { Styles.secret }>
                     <img src = { secretPicture } />
-                    <button onClick = { onLogout }>Выйти</button>
+                    <button onClick = { _onLogout }>Выйти</button>
                 </div>
             );
         }

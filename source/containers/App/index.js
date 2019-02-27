@@ -28,14 +28,14 @@ export default class App extends Component {
         isLoggedIn: localStorage.getItem('user') || false,
     };
 
-    onLogin = () => {
+    _onLogin = () => {
         this.setState({
             isLoggedIn: true,
         });
         localStorage.setItem('user', true);
     };
 
-    onLogout = () => {
+    _onLogout = () => {
         this.setState({
             isLoggedIn: false,
         });
@@ -58,9 +58,9 @@ export default class App extends Component {
                             path = '/profile'
                             render = { () => (
                                 <Profile
+                                    _onLogin = { this.onLogin }
+                                    _onLogout = { this.onLogout }
                                     isLoggedIn = { isLoggedIn }
-                                    onLogin = { this.onLogin }
-                                    onLogout = { this.onLogout }
                                 />
                             ) }
                         />
@@ -68,8 +68,8 @@ export default class App extends Component {
                             path = '/secret'
                             render = { () => (
                                 <SecretPage
+                                    _onLogout = { this.onLogout }
                                     isLoggedIn = { isLoggedIn }
-                                    onLogout = { this.onLogout }
                                 />
                             ) }
                         />
