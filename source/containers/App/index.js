@@ -25,19 +25,21 @@ const options = {
 @hot(module)
 export default class App extends Component {
     state = {
-        isLoggedIn: false,
+        isLoggedIn: localStorage.getItem('user') || false,
     };
 
     onLogin = () => {
         this.setState({
             isLoggedIn: true,
         });
+        localStorage.setItem('user', true);
     };
 
     onLogout = () => {
         this.setState({
             isLoggedIn: false,
         });
+        localStorage.removeItem('user');
     };
 
     render() {
