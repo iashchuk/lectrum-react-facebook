@@ -58,8 +58,8 @@ export default class App extends Component {
                             path = '/profile'
                             render = { () => (
                                 <Profile
-                                    _onLogin = { this.onLogin }
-                                    _onLogout = { this.onLogout }
+                                    _onLogin = { this._onLogin }
+                                    _onLogout = { this._onLogout }
                                     isLoggedIn = { isLoggedIn }
                                 />
                             ) }
@@ -68,7 +68,7 @@ export default class App extends Component {
                             path = '/secret'
                             render = { () => (
                                 <SecretPage
-                                    _onLogout = { this.onLogout }
+                                    _onLogout = { this._onLogout }
                                     isLoggedIn = { isLoggedIn }
                                 />
                             ) }
