@@ -1,3 +1,7 @@
+<img src="http://iashchuk.ru/data/lectrum-react-certificate.jpg" alt="Certificate" />
+<br>
+<br>
+
 <h1 align="center">
     <a href="https://lectrum.io" target="_blank" rel="noopener noreferrer">
         <img src="./static/favicon/favicon-woodsmoke.svg" alt="Lectrum favicon" width="25" />
