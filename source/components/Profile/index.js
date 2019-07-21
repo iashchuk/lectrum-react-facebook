@@ -27,11 +27,11 @@ class Profile extends Component {
                 <img src = { avatar } />
                 {!isLoggedIn ? (
                     <Fragment>
-                        <h2>Для просмотра закрытой страницы необходимо нажать кнопку</h2>
+                        <h2>Для просмотра секретной страницы необходимо нажать кнопку</h2>
                         <button onClick = { _onLogin }>Получить доступ</button>
                     </Fragment>
                 ) : (
-                    <button onClick = { _onLogout }>Закрытыть доступ к закрытой странице</button>
+                    <button onClick = { _onLogout }>Закрыть доступ к секретной странице</button>
                 )}
             </section>
         );
