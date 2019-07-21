@@ -12,13 +12,13 @@ import Profile from '../components/Profile';
 import Catcher from '../components/Catcher';
 import StatusBar from '../components/StatusBar';
 import SecretPage from '../components/SecretPage';
-import { Provider } from '../components/HOC/withProfile';
+import { Context } from '../components/Context';
 
 const options = {
     avatar,
+    secretPicture,
     currentUserFirstName: 'Виталий',
     currentUserLastName:  'Ящук',
-    secretPicture,
 };
 
 export const App = () => {
@@ -36,7 +36,7 @@ export const App = () => {
 
     return (
         <Catcher>
-            <Provider value = { options }>
+            <Context.Provider value = { options }>
                 <StatusBar />
                 <Switch>
                     <Route
@@ -47,9 +47,9 @@ export const App = () => {
                         path = '/profile'
                         render = { () => (
                             <Profile
-                                _onLogin = { onLogin }
-                                _onLogout = { onLogout }
                                 isLoggedIn = { isLoggedIn }
+                                onLogin = { onLogin }
+                                onLogout = { onLogout }
                             />
                         ) }
                     />
@@ -57,14 +57,14 @@ export const App = () => {
                         path = '/secret'
                         render = { () => (
                             <SecretPage
-                                _onLogout = { onLogout }
                                 isLoggedIn = { isLoggedIn }
+                                onLogout = { onLogout }
                             />
                         ) }
                     />
                     <Redirect to = '/feed' />
                 </Switch>
-            </Provider>
+            </Context.Provider>
         </Catcher>
     );
 };
