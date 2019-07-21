@@ -1,5 +1,5 @@
 // Core
-import { getFullApiUrl } from 'instruments';
+import { getFullApiUrl } from '../instruments';
 
 const GROUP_ID = 'muigd1gnahf3';
 const TOKEN = '0eibdtkic6';
