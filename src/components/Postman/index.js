@@ -1,11 +1,15 @@
 // Core
-import React from 'react';
+import React, { useContext } from 'react';
+
+// Components
+import { Context } from '../Context';
 
 //Instruments
 import Styles from './styles.module.css';
-import { withProfile } from '../HOC/withProfile';
 
-const Postman = ({ avatar, currentUserFirstName }) => {
+const Postman = () => {
+    const { avatar, currentUserFirstName } = useContext(Context);
+
     return (
         <section className = { Styles.postman }>
             <img src = { avatar } />
@@ -14,4 +18,4 @@ const Postman = ({ avatar, currentUserFirstName }) => {
     );
 };
 
-export default withProfile(Postman);
+export default Postman;
