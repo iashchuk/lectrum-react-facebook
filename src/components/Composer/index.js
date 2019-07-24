@@ -1,77 +1,54 @@
-import React, { Component } from 'react';
-import { func, string } from 'prop-types';
+import React, { useState, useContext } from 'react';
 
 //Instruments
 import Styles from './styles.module.css';
 
 // Components
-import { withProfile } from '../HOC/withProfile';
+import { Context } from '../Context';
 
-export class Composer extends Component {
-    static propTypes = {
-        _createPost:          func.isRequired,
-        avatar:               string.isRequired,
-        currentUserFirstName: string.isRequired,
-    };
+export const Composer = ({ createPost }) => {
+    const [ comment, setComment ] = useState('');
+    const context = useContext(Context);
 
-    state = {
-        comment: '',
-    };
-
-    _updateComment = (event) => {
-        this.setState({
-            comment: event.target.value,
-        });
-    };
-
-    _handleFormSubmit = (event) => {
-        event.preventDefault();
-        this._submitComment();
-    };
-
-    _submitComment = () => {
-        const { comment } = this.state;
-
+    const submitComment = () => {
         if (!comment) {
             return null;
         }
-        this.props._createPost(comment);
+        createPost(comment);
 
-        this.setState({
-            comment: '',
-        });
+        setComment('');
     };
 
-    _submitOnEnter = (event) => {
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        submitComment();
+    };
+
+    const submitOnEnter = (event) => {
         const enterKey = event.key === 'Enter';
         if (enterKey) {
             event.preventDefault();
-            this._submitComment();
+            submitComment();
         }
     };
 
-    render() {
-        const { comment } = this.state;
-        const { avatar, currentUserFirstName } = this.props;
+    return (
+        <section className = { Styles.composer }>
+            <img src = { context.avatar } />
+            <form onSubmit = { handleFormSubmit }>
+                <textarea
+                    placeholder = { `What\'s on your mind, ${context.currentUserFirstName}` }
+                    value = { comment }
+                    onChange = { (event) => setComment(event.target.value) }
+                    onKeyPress = { submitOnEnter }
+                />
+                <input
+                    type = 'submit'
+                    value = 'Post'
+                />
+            </form>
+        </section>
+    );
+};
 
-        return (
-            <section className = { Styles.composer }>
-                <img src = { avatar } />
-                <form onSubmit = { this._handleFormSubmit }>
-                    <textarea
-                        placeholder = { `What\'s on your mind, ${currentUserFirstName}` }
-                        value = { comment }
-                        onChange = { this._updateComment }
-                        onKeyPress = { this._submitOnEnter }
-                    />
-                    <input
-                        type = 'submit'
-                        value = 'Post'
-                    />
-                </form>
-            </section>
-        );
-    }
-}
-
-export default withProfile(Composer);
+export default Composer;
