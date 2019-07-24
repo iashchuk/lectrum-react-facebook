@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 
 //Instruments
 import Styles from './styles.module.css';
 
 // Components
-import { withProfile } from '../HOC/withProfile';
+import { Context } from '../Context';
 
-class StatusButton extends Component {
-    render() {
-        const { avatar, currentUserFirstName, currentUserLastName } = this.props;
+const StatusButton = () => {
+    const context = useContext(Context);
+    const { avatar, currentUserFirstName, currentUserLastName } = context;
 
-        return (
-            <button className = { Styles.statusButton }>
-                <img src = { avatar } />
-                <span>{currentUserFirstName}</span>
-                &nbsp;
-                <span>{currentUserLastName}</span>
-            </button>
-        );
-    }
-}
+    return (
+        <button className = { Styles.statusButton }>
+            <img src = { avatar } />
+            <span>{currentUserFirstName}</span>
+            &nbsp;
+            <span>{currentUserLastName}</span>
+        </button>
+    );
+};
 
-export default withProfile(StatusButton);
+export default StatusButton;
