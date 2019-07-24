@@ -1,67 +1,31 @@
-import React, { Component } from 'react';
-import { func, string, arrayOf, shape } from 'prop-types';
+import React, { useState, useContext } from 'react';
 import cx from 'classnames';
 
 //Instruments
 import Styles from './styles.module.css';
 
 // Components
-import { withProfile } from '../HOC/withProfile';
+import { Context } from '../Context';
 
-class Like extends Component {
-    static propTypes = {
-        _likePost: func.isRequired,
-        id:        string.isRequired,
-        likes:     arrayOf(
-            shape({
-                id:        string.isRequired,
-                firstName: string.isRequired,
-                lastName:  string.isRequired,
-            }),
-        ).isRequired,
-    };
+const Like = ({ id, likes, likePost }) => {
+    const [ showLikers, setShowLikers ] = useState(false);
+    const { currentUserFirstName, currentUserLastName } = useContext(Context);
 
-    state = {
-        showLikers: false,
-    };
-
-    _showLikers = () => {
-        this.setState({
-            showLikers: true,
-        });
-    };
-
-    _hideLikers = () => {
-        this.setState({
-            showLikers: false,
-        });
-    };
-
-    _likePost = () => {
-        const { _likePost, id } = this.props;
-        _likePost(id);
-    };
-
-    _getLikedByMe = () => {
-        const { currentUserFirstName, currentUserLastName, likes } = this.props;
-
+    const getLikedByMe = () => {
         return likes.some(({ firstName, lastName }) => {
             return `${firstName} ${lastName}` === `${currentUserFirstName} ${currentUserLastName}`;
         });
     };
 
-    _getLikeStyles = () => {
-        const likedByMe = this._getLikedByMe();
+    const getLikeStyles = () => {
+        const likedByMe = getLikedByMe();
 
         return cx(Styles.icon, {
             [ Styles.liked ]: likedByMe,
         });
     };
 
-    _getLikersList = () => {
-        const { showLikers } = this.state;
-        const { likes } = this.props;
-
+    const getLikersList = () => {
         const likesJSX = likes.map(({ firstName, lastName, id }) => (
             <li key = { id }>{`${firstName} ${lastName}`}</li>
         ));
@@ -69,9 +33,8 @@ class Like extends Component {
         return likes.length && showLikers ? <ul>{likesJSX}</ul> : null;
     };
 
-    _getLikesDescription = () => {
-        const { likes, currentUserFirstName, currentUserLastName } = this.props;
-        const likedByMe = this._getLikedByMe();
+    const getLikesDescription = () => {
+        const likedByMe = getLikedByMe();
 
         if (likes.length === 1 && likedByMe) {
             return `${currentUserFirstName} ${currentUserLastName}`;
@@ -84,29 +47,27 @@ class Like extends Component {
         return likes.length;
     };
 
-    render() {
-        const likeStyles = this._getLikeStyles();
-        const likersList = this._getLikersList();
-        const likesDescription = this._getLikesDescription();
+    const likeStyles = getLikeStyles();
+    const likersList = getLikersList();
+    const likesDescription = getLikesDescription();
 
-        return (
-            <section className = { Styles.like }>
+    return (
+        <section className = { Styles.like }>
+            <span
+                className = { likeStyles }
+                onClick = { () => likePost(id) }>
+                Like
+            </span>
+            <div>
+                {likersList}
                 <span
-                    className = { likeStyles }
-                    onClick = { this._likePost }>
-                    Like
+                    onMouseEnter = { () => setShowLikers(true) }
+                    onMouseLeave = { () => setShowLikers(false) }>
+                    {likesDescription}
                 </span>
-                <div>
-                    {likersList}
-                    <span
-                        onMouseEnter = { this._showLikers }
-                        onMouseLeave = { this._hideLikers }>
-                        {likesDescription}
-                    </span>
-                </div>
-            </section>
-        );
-    }
-}
+            </div>
+        </section>
+    );
+};
 
-export default withProfile(Like);
+export default Like;
