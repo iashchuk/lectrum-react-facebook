@@ -1,40 +1,31 @@
 // Core
-import React, { Component, Fragment } from 'react';
+import React, { useContext } from 'react';
 
 //Components
-import { withProfile } from '../HOC/withProfile';
+import { Context } from '../Context';
 
 // Instruments
 import Styles from './styles.module.css';
 
-class Profile extends Component {
-    render() {
-        const {
-            currentUserFirstName,
-            currentUserLastName,
-            avatar,
-            isLoggedIn,
-            _onLogin,
-            _onLogout,
-        } = this.props;
+const Profile = ({ isLoggedIn, onLogin, onLogout }) => {
+    const { avatar, currentUserFirstName, currentUserLastName } = useContext(Context);
 
-        return (
-            <section className = { Styles.profile }>
-                <h1>
-                    Welcome, {currentUserFirstName} {currentUserLastName}
-                </h1>
-                <img src = { avatar } />
-                {!isLoggedIn ? (
-                    <Fragment>
-                        <h2>Для просмотра секретной страницы необходимо нажать кнопку</h2>
-                        <button onClick = { _onLogin }>Получить доступ</button>
-                    </Fragment>
-                ) : (
-                    <button onClick = { _onLogout }>Закрыть доступ к секретной странице</button>
-                )}
-            </section>
-        );
-    }
-}
+    return (
+        <section className = { Styles.profile }>
+            <h1>
+                Welcome, {currentUserFirstName} {currentUserLastName}
+            </h1>
+            <img src = { avatar } />
+            {!isLoggedIn ? (
+                <>
+                    <h2>Для просмотра секретной страницы необходимо нажать кнопку</h2>
+                    <button onClick = { onLogin }>Получить доступ</button>
+                </>
+            ) : (
+                <button onClick = { onLogout }>Закрыть доступ к секретной странице</button>
+            )}
+        </section>
+    );
+};
 
-export default withProfile(Profile);
+export default Profile;
