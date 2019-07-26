@@ -1,0 +1,4 @@
+@import-normalize;
+@import "./palette.css";
+@import "./animations.css";
+@import "./globals.css";
